@@ -1,27 +1,39 @@
-
+import { useState } from 'react';
+import img from './assets/images.js'
 function App() {
-  let img = <img
-  crossOrigin='anonymous'
-  id = 'img'
-  src='https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?cs=srgb&dl=pexels-pixabay-45201.jpg&fm=jpg'/>
 
-
-
-  // console.log('does this work', cocoSsd.load().then(model => model.detect(img).then(predictions => {
-  //   console.log('predict', predictions)
-  // })))
-  const handleClick = async () => {
-    let intel = document.getElementById('img')
-
-           // eslint-disable-next-line no-undef
-    let model = await cocoSsd.load();
-
-    let predictions = await model.detect(intel)
-
-    console.log('predicitons', predictions)
-
-
+  let model = true;
+  const checkWebCam = () => {
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
   };
+
+  const enableCam = (event) => {
+    if (!model) return;
+
+    let video = document.getElementById('camView')
+    const constraints = {
+      video: true
+    };
+
+    navigator.mediaDevices.getUserMedia(constraints)
+    .then(stream => {
+      console.log('inside navigaor', stream)
+      video.srcObject = stream
+    })
+    .catch(err => console.log('error in webcam'))
+  };
+
+  const handleClick = (event) => {
+    if (checkWebCam()) {
+      enableCam()
+    } else {
+      console.log('No WebCam available')
+    }
+  };
+
+  const predictWebCam = () => {
+    console.log('yes')
+  }
 
   return (
     <div className= "app">
@@ -29,9 +41,42 @@ function App() {
       <button onClick = {handleClick}>
         Identify Object
       </button>
+
+      <video
+      id ="camView"
+      autoPlay muted
+      width="640"
+      height="480"
+      onLoadedData={predictWebCam}
+      >
+    </video>
       {img}
     </div>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+// const handleClick = async () => {
+//   let intel = document.getElementById('img')
+
+//   // eslint-disable-next-line no-undef
+//   let model = await cocoSsd.load();
+
+//   let predictions = await model.detect(intel)
+
+//   console.log('predicitons', predictions)
+
+
+// };
