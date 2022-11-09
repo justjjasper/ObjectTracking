@@ -19,7 +19,7 @@ video {
   display: block
 }
 
-#camView {
+.camView {
   position: relative;
   float: left;
   width: calc(100% - 20px);
@@ -29,7 +29,7 @@ video {
 }
 
 
-#camView p {
+.camView p {
   position: absolute;
   padding: 5px;
   background-color: rgba(255, 111, 0, 0.85);
