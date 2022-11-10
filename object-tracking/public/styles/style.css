@@ -4,30 +4,33 @@
   color: red;
 }; */
 
-.app {
-  font-size: 50px;
+#app {
+  display: flex;
+  flex-direction: column;
   color: red;
+  align-items: center;
 }
 
-/* span {
-  background-color: blue;
-  text-align: center;
-  color: red;
-} */
+#text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 video {
-  display: block
+  display: block;
+  border-radius: 12px;
 }
+
 
 .camView {
   position: relative;
-  float: left;
   width: calc(100% - 20px);
   margin: 10px;
-  cursor: pointer;
-  background-color: #666;
+  border-radius: 12px;
+  left: 385px;
 }
-
 
 .camView p {
   position: absolute;
@@ -36,7 +39,8 @@ video {
   color: #FFF;
   border: 1px dashed rgba(255, 255, 255, 0.7);
   z-index: 2;
-  font-size: 12px;
+  font-size: 25px;
+  border-radius: 12px;
 }
 
 .highlighter {
@@ -44,4 +48,9 @@ video {
   border: 1px dashed #fff;
   z-index: 1;
   position: absolute;
+  border-radius: 12px;
+}
+
+button {
+  cursor: pointer;
 }

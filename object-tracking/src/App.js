@@ -1,14 +1,19 @@
 /* eslint-disable no-undef */
-
 import { useState } from 'react';
 import img from './assets/images.js'
+
 function App() {
+  const [disabled, setDisabled] = useState('true')
   let model = undefined;
 
-
+  // Load the models from the cocoSsd module
   (async () => {
     let loadedModel = await cocoSsd.load()
     model = loadedModel
+
+    if (model) {
+      setDisabled('')
+    }
   })()
 
   // Check if user has a working webcam
@@ -34,7 +39,7 @@ function App() {
   const predictWebcam = () => {
     let video = document.getElementById('webcam');
     let liveView = document.getElementById('liveView');
-    console.log('what are tou video', video)
+
     // Now let's start classifying a frame in the stream.
     // Model.detect's output is the object
     model.detect(video).then(function (predictions) {
@@ -53,6 +58,7 @@ function App() {
           p.innerText = predictions[n].class  + ' - with '
               + Math.round(parseFloat(predictions[n].score) * 100)
               + '% confidence.';
+              console.log('what is bbox', predictions)
           p.style = 'margin-left: ' + predictions[n].bbox[0] + 'px; margin-top: '
               + (predictions[n].bbox[1] - 10) + 'px; width: '
               + (predictions[n].bbox[2] - 10) + 'px; top: 0; left: 0;';
@@ -85,13 +91,23 @@ function App() {
   };
 
   return (
-    <div className= "app">
-      Hello World
-      <button onClick = {handleClick}>
+    <div id= "app">
+
+      <section id="text">
+      <h2> Object Identification </h2>
+      <span> Wait for the button to load and then click on it.</span>
+      <span> Hold an object in front of your webcam and that item will be identified! </span>
+
+
+      <button
+        onClick = {handleClick}
+        disabled = {disabled}>
         Enable Camera
       </button>
+      </section>
 
-      <div id= "liveView" className= "camView">
+
+      <section id= "liveView" className= "camView">
         <video
         id ="webcam"
         autoPlay muted
@@ -100,33 +116,10 @@ function App() {
         onLoadedData={predictWebcam}
         >
       </video>
-      </div>
+      </section>
+
     </div>
   );
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-// const handleClick = async () => {
-//   let intel = document.getElementById('img')
-
-//   // eslint-disable-next-line no-undef
-//   let model = await cocoSsd.load();
-
-//   let predictions = await model.detect(intel)
-
-//   console.log('predicitons', predictions)
-
-
-// };
