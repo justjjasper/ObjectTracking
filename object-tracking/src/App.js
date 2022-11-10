@@ -4,6 +4,7 @@ import img from './assets/images.js'
 
 function App() {
   const [disabled, setDisabled] = useState('true')
+  let children = []
   let model = undefined;
 
   // Load the models from the cocoSsd module
@@ -33,8 +34,6 @@ function App() {
     }
     catch(err) { console.log('error in webcam') }
   };
-
-  let children = []
 
   const predictWebcam = () => {
     let video = document.getElementById('webcam');
@@ -113,8 +112,7 @@ function App() {
         autoPlay muted
         width="640"
         height="480"
-        onLoadedData={predictWebcam}
-        >
+        onLoadedData={predictWebcam}>
       </video>
       </section>
 
