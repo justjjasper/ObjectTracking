@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { useState } from 'react';
-import img from './assets/images.js'
+import styles from './input.css'
 
 function App() {
   const [disabled, setDisabled] = useState('true')
@@ -90,7 +90,7 @@ function App() {
   };
 
   return (
-    <div id= "app">
+    <div id= "app" className="bg bg-pink-500 ">
 
       <section id="text">
       <h2> Object Identification </h2>
@@ -99,6 +99,7 @@ function App() {
 
 
       <button
+        className="text-decoration-line: line-through bg-amber-700"
         onClick = {handleClick}
         disabled = {disabled}>
         Enable Camera
